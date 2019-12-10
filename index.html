@@ -9,14 +9,18 @@
 	</head>
 	<body>
 		<!-- integration de l'interface -->
-		<button id="bt_ping">PING</button>
+		<!-- <button id="bt_ping">PING</button> -->
 
 		<!-- Page de connexion -->
 		<div id="global-ctnr">
 
 			<!-- Conteneur : titre du site + formulaire -->
 			<div id="sign-in-section">
-				<h1>KWICK</h1>
+
+				<div id="logo-section">
+					<img src="assets/img/Quotidien-logo.png" />
+					<h1>KWICK</h1>
+				</div>
 
 				<!-- Formulaire de connexion -->
 				<form>
@@ -26,16 +30,16 @@
 					<label for="pseudo">Mots de passe :</label>
 					<input type="password" name="pass" id="pass"/>
 
-					<div id="valid-section">
-						<input type="button" value="Se connecter"/>
-						<a href="inscription.html">Creer un compte</a>
-					</div>
+					<input type="button" value="Se connecter"/>
+					<button><a href="inscription.html">Creer un compte</a></button>
+					
 				</form>
 				
 			</div>
 		</div>
 		<script src="assets/src/jquery.js"></script>
 		<script src="assets/src/kwick.js"></script>
+		<script src="assets/src/all.min.js"></script>
 		<script>
 			$(document).ready(function() {
 				app.init();
