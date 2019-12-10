@@ -1,0 +1,55 @@
+/* CSS de la page messagerie.html */
+
+body{
+    margin: 0;
+}
+
+/*Gestion du placement et de la taille des différents éléments */
+header{
+    display: flex;
+    justify-content: space-between;
+}
+
+/* Conteneur du chat et de la liste des contacts */
+#main-interface-section{
+    display: flex;
+    justify-content: space-around;
+}
+
+/* Mise en forme du chat */
+#chat-section{
+    width: 75%;
+    
+}
+
+#message-registre{
+    margin-bottom: 2%;
+}
+
+#message-submit{
+    margin-bottom: 1%;
+}
+
+
+/*Mise en forme de la liste des contacts */
+#contact-section{
+    width: 20%;
+    
+}
+
+.contact-item{
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 3%;
+    
+}
+
+.contact-item > img{
+    width: 50px;
+}
+
+input[type="button"]{
+    display: block;
+    height: 35px;
+    width: 100px;
+}

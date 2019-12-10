@@ -1,0 +1,35 @@
+/*CSS de la page index.html */
+
+body{
+    margin: 0;
+}
+
+/*Gestion du placement et de la taile des différents éléments */
+#sign-in-section{
+    width: 50%;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    margin: auto;
+    margin-top: 10%;
+    border: 1px solid;
+}
+
+form{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-direction: column;
+    border: 1px solid;
+}
+
+form > input, #valid-section{
+    margin-bottom: 5%;
+}
+
+form > input{
+    width: 250px;
+}
