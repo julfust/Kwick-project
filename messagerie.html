@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title>Kwick!</title>
     <link rel="stylesheet" href="assets/css/messagerie.css">
 </head>
 <body>
@@ -15,7 +15,7 @@
 
         <div id="logo-section">
             <img src="assets/img/Quotidien-logo.png">
-            <h2>Kwick!</h2>
+            <h2>KWICK!</h2>
         </div>
         
         <h1>Messagerie</h1>
@@ -52,31 +52,7 @@
 
                 <div class="contact-item"> <!-- Display flex: placement de la pp et de l'id en ligne -->
                     <img src="assets/img/logo-contact.png" />
-                    <p>Random contact</p>
-                </div>
-                <div class="contact-item">
-                    <img src="assets/img/logo-contact.png" />
-                    <p>Random contact</p>
-                </div>
-                <div class="contact-item">
-                    <img src="assets/img/logo-contact.png" />
-                    <p>Random contact</p>
-                </div>
-                <div class="contact-item">
-                    <img src="assets/img/logo-contact.png" />
-                    <p>Random contact</p>
-                </div>
-                <div class="contact-item">
-                    <img src="assets/img/logo-contact.png" />
-                    <p>Random contact</p>
-                </div>
-                <div class="contact-item">
-                    <img src="assets/img/logo-contact.png" />
-                    <p>Random contact</p>
-                </div>
-                <div class="contact-item">
-                    <img src="assets/img/logo-contact.png" />
-                    <p>Random contact</p>
+                    <p id="name-contact">Random-contact</p>
                 </div>
             </asside>
             
@@ -84,6 +60,12 @@
     </div>
     <script src="assets/src/jquery.js"></script>
 	<script src="assets/src/kwick.js"></script>
-	<script src="assets/src/all.min.js"></script>  
+    <script src="assets/src/all.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            app.init();
+            app.logged();
+        });
+    </script>
 </body>
 </html>
