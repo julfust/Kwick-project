@@ -37,22 +37,19 @@
                     <h3>Discussion<h3>
                 </div>
 
-                <div id="message-registre"></div><!-- Conteneur permettant d'afficher le registre des messages -->
+                <div id="message-registre"><!-- Conteneur permettant d'afficher le registre des messages -->
+                    
+                </div>
                 <textarea rows="3" cols="120" id="message-submit"></textarea>
-                <input type="button" value="Envoyer" />
+                <input type="button" value="Envoyer" id="submit"/>
 
             </div>
 
             <!-- Liste des contacts -->
             <asside id="contact-section">
-                <div class="title-ctnr">
+                <div class="title-ctnr" id="title-contact-ctnr">
                     <i class="fas fa-address-book"></i>
                     <h3>En ligne</h3>
-                </div>
-
-                <div class="contact-item"> <!-- Display flex: placement de la pp et de l'id en ligne -->
-                    <img src="assets/img/logo-contact.png" />
-                    <p id="name-contact">Random-contact</p>
                 </div>
             </asside>
             
@@ -65,6 +62,7 @@
         $(document).ready(function() {
             app.init();
             app.logged();
+            app.talkList();
         });
     </script>
 </body>

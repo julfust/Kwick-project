@@ -1,5 +1,6 @@
 const app = {
 	kwick_api_url: 'http://greenvelvet.alwaysdata.net/kwick/api/',
+
 	init: function() {
 		console.log('Kwick app is ready to rock !');
 
@@ -8,6 +9,8 @@ const app = {
 		$('#create').on('click', app.signup);
 		$('#connexion').on('click', app.login);
 		$('#button-ctnr').on('click', app.disconect);
+		$('#submit').on('click', app.say);
+		setInterval(app.talkList, 500);
 	},
 
 	/* Fonction permettant de renvoyer le temps de réponse au serveur (Liée à la page index.html) */
@@ -52,6 +55,7 @@ const app = {
 					if(result.result.status == "done"){
 						localStorage.setItem('id', result.result.id);
 						localStorage.setItem('token', result.result.token);
+						localStorage.setItem('pseudo', pseudo);
 						localStorage.setItem('time', result.kwick.completed_in);
 						window.location.href = 'messagerie.html';
 						return false;
@@ -94,9 +98,10 @@ const app = {
 				alert(result.result.message);
 
 				if(result.result.status == "done"){
-					localStorage.setItem('time', result.kwick.completed_in);
 					localStorage.setItem('id', result.result.id);
 					localStorage.setItem('token', result.result.token);
+					localStorage.setItem('pseudo', pseudo);
+					localStorage.setItem('time', result.kwick.completed_in);
 					window.location.href = 'messagerie.html';
 					return false;
 				}
@@ -129,6 +134,7 @@ const app = {
 				console.log(result);
 				localStorage.setItem('id', '');
 				localStorage.setItem('token', '');
+				localStorage.setItem('pseudo', '');
 				localStorage.setItem('time', result.kwick.completed_in);
 				window.location.href = 'index.html';
             	return false;
@@ -139,10 +145,11 @@ const app = {
 		});
 	},
 
-	/* Fonction permettant d'afficher l'ensemble des utilisateurs connectés */
-	/*
+	/* Fonction permettant d'afficher l'ensemble des utilisateurs connectés (liée à la page messagerie.html) */
+	
 	logged: function(){
 		let token = localStorage.getItem('token');
+		let pseudo = localStorage.getItem('pseudo');
 
 		$.ajax({
 			url: app.kwick_api_url + 'user/logged/' + token,
@@ -152,13 +159,86 @@ const app = {
 			success: function(result, status, xhr) {
 				console.log(result);
 
-				for(let i = 0; i < 10; i++){
-					$(".contact-item").after("<div class=\"contact-item\"><img src=\"assets/img/logo-contact.png\" /><p>" + result.result.user[i] + "</p></div>");
+				for(let i = 0; i < result.result.user.length; i++){
+					if(result.result.user[i] == pseudo){
+						$("#title-contact-ctnr").after("<div class=\"contact-item\"><i class=\"fas fa-user\" style=\"color:blue\"></i><h3 style=\"color:red\">" + result.result.user[i] + "</h3></div>");
+						continue;
+					}
+					$("#title-contact-ctnr").after("<div class=\"contact-item\"><i class=\"fas fa-user\" style=\"color:green\"></i><h3>" + result.result.user[i] + "</h3></div>");
 				}
 			},
 			error: function(xhr, status, error) {
 				alert('Error');
 			}
 		})
-	}*/
+	},
+
+	/* Fonction permettant d'envoyer des messages (liée à la page messagerie.html) */
+	say: function(){
+		let token = localStorage.getItem('token');
+		let user_id = localStorage.getItem('id');
+		let message = encodeURI($('#message-submit').val());
+
+		$.ajax({
+			url: app.kwick_api_url + 'say/' + token + '/' + user_id + '/' + message,
+			dataType: 'jsonp',
+			type: 'GET',
+			contentType: 'application/json; charset=utf-8',
+			success: function(result, status, xhr) {
+				console.log(result);				
+			},
+			error: function(xhr, status, error) {
+				alert('Error');
+			}
+		})
+	},
+
+	/* Fonction permettant d'afficher les messages du chat (liée à la page messagerie.html) */
+
+	updateTalk: function(){
+		let token = localStorage.getItem('token');
+
+		$.ajax({
+			url: app.kwick_api_url + 'talk/list/' + token + '/0',
+			dataType: 'jsonp',
+			type: 'GET',
+			contentType: 'application/json; charset=utf-8',
+			success: function(result, status, xhr) {
+				console.log(result);
+				localStorage.setItem('recuplast', result.result.last_timestamp);
+			},
+			error: function(xhr, status, error) {
+				alert('Error');
+			}
+		})	
+	},
+
+	talkList: function(){
+
+		let token = localStorage.getItem('token');
+		let timeStamp = localStorage.getItem('recuplast');
+
+		$.ajax({
+			url: app.kwick_api_url + 'talk/list/' + token + '/' + timeStamp,
+			dataType: 'jsonp',
+			type: 'GET',
+			contentType: 'application/json; charset=utf-8',
+			success: function(result, status, xhr) {
+				console.log(result);
+				$("#message-registre").empty();
+
+				if(result.result.status == "done"){
+
+					for(let i = 0; i < result.result.talk.length; i++)
+					{
+						$("#message-registre").append("<p><span style=\"color:green\">message n°" + (i+1) + "</span> <span style=\"color:red\">" + result.result.talk[i].user_name + "</span> : " + result.result.talk[i].content + "</p><br />");
+					}
+				}
+			
+			},
+			error: function(xhr, status, error) {
+				alert('Error');
+			}
+		})
+	},
 }
